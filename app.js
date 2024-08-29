@@ -33,7 +33,7 @@ intilizeDatabaseAndServer()
 app.get('/players/', async (request, response) => {
   const getPlayersQuery = `
     select
-        *
+        player_id as playerId, player_name as playerName, jersey_number as jerseyNumber, role
     From
         cricket_team;`
   const playersArray = await db.all(getPlayersQuery)
@@ -61,17 +61,17 @@ app.get('/players/:playerId/', async (request, response) => {
   const {playerId} = request.params
   const getPlayerQuery = `
   select 
-    *
+    player_id as playerId, player_name as playerName, jersey_number as jerseyNumber, role
   from
       cricket_team
   where
-   player_id = ${playerId};`
+   playerId = ${playerId};`
   const player = await db.get(getPlayerQuery)
-  const {player_id, player_name, jersey_number, role} = player
+  const {playerId, playerName, jerseyNumber, role} = player
   const dbResponse = {
-    playerId: player_id,
-    playerName: player_name,
-    jerseyNumber: jersey_number,
+    playerId: playerId,
+    playerName: playerName,
+    jerseyNumber: jerseyNumber,
     role: role,
   }
   response.send(dbResponse)
@@ -85,9 +85,9 @@ app.put('/players/:playerId/', async (request, response) => {
   const updatePlayerQuery = `update
     cricket_team
   set 
-    player_name = ${playerName},
+    player_name = '${playerName}',
     jersey_number = ${jerseyNumber},
-    role = ${role} 
+    role = '${role}' 
   where
     player_id = ${playerId} ;`
   await db.run(updatePlayerQuery)
@@ -106,4 +106,4 @@ app.delete('/players/:playerId/', async (request, response) => {
   response.send('Player Removed')
 })
 
-module.exports = app
+export default app;
