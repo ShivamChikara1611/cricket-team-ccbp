@@ -65,7 +65,7 @@ app.get('/players/:playerId/', async (request, response) => {
   from
       cricket_team
   where
-   playerId = ${playerId};`
+   player_id = ${playerId};`
   const player = await db.get(getPlayerQuery)
   const {playerId, playerName, jerseyNumber, role} = player
   const dbResponse = {
@@ -101,9 +101,9 @@ app.delete('/players/:playerId/', async (request, response) => {
     delete
       from cricket_team
     where
-      playerId = ${playerId};`
+      player_id = ${playerId};`
   await db.run(deletePlayerQuery)
   response.send('Player Removed')
 })
 
-export default app;
+export default app
