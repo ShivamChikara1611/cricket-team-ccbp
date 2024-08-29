@@ -106,4 +106,4 @@ app.delete('/players/:playerId/', async (request, response) => {
   response.send('Player Removed')
 })
 
-export default app
+module.exports = app;
