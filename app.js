@@ -66,15 +66,8 @@ app.get('/players/:playerId/', async (request, response) => {
       cricket_team
   where
     player_id = ${playerId};`
-    const player = await db.get(getPlayerQuery)
-    const {playerId, playerName, jerseyNumber, role} = player
-    const dbResponse = {
-      playerId: player_id,
-      playerName: player_name,
-      jerseyNumber: jersey_number,
-      role: role
-    }
-    response.send(dbResponse)
+  const player = await db.get(getPlayerQuery)
+  response.send(player)
 })
 
 //update Book API
