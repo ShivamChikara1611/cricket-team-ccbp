@@ -65,16 +65,16 @@ app.get('/players/:playerId/', async (request, response) => {
   from
       cricket_team
   where
-   player_id = ${playerId};`
-  const player = await db.get(getPlayerQuery)
-  const {playerId, playerName, jerseyNumber, role} = player
-  const dbResponse = {
-    playerId: playerId,
-    playerName: playerName,
-    jerseyNumber: jerseyNumber,
-    role: role,
-  }
-  response.send(dbResponse)
+    player_id = ${playerId};`
+    const player = await db.get(getPlayerQuery)
+    const {playerId, playerName, jerseyNumber, role} = player
+    const dbResponse = {
+      playerId: player_id,
+      playerName: player_name,
+      jerseyNumber: jersey_number,
+      role: role
+    }
+    response.send(dbResponse)
 })
 
 //update Book API
@@ -106,4 +106,4 @@ app.delete('/players/:playerId/', async (request, response) => {
   response.send('Player Removed')
 })
 
-module.exports = app;
+module.exports = app
